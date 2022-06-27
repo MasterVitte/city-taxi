@@ -1,8 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react'
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios'
 
 function App() {
+  const [, setState] = useState({})
+  const getData = async() => {
+    const response = await axios.get('http://localhost:5000/async');
+    return response;
+  }
+  useEffect(() => {
+  getData()
+      .then(res => {
+        setState(res);
+      })
+  }, [])
   return (
     <div className="App">
       <header className="App-header">
