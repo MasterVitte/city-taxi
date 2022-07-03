@@ -22,3 +22,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+exec 0ef9083d9892 'mysql -u root -p root SELECT * FROM users'

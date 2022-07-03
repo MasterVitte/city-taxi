@@ -3,16 +3,21 @@
   "version": "1.0.0",
   "scripts": {
     "client": "cd client && npm start",
-    "server": "nodemon server",
-    "fillDb": "nodemon fill_db",
+    "server": "nodemon server.js",
+    "connectDB": "nodemon db/connect_db.js",
+    "initDB": "nodemon db/init_db.js",
     "dev": "concurrently --kill-others-on-fail \"npm server\" \"npm client\""
   },
   "dependencies": {
     "axios": "^0.27.2",
     "body-parser": "^1.18.3",
-    "express": "^4.16.4",
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.18"
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.18",
+    "sequelize": "^6.21.1",
+    "socket.io": "^4.5.1"
   },
   "devDependencies": {
     "@types/node": "^18.0.0",

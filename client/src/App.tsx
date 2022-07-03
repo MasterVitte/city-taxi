@@ -1,36 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import './App.css';
-import axios from 'axios'
+import React from 'react'
+import './App.css'
+import { Routes } from './Routes'
+import { BrowserRouter } from 'react-router-dom'
 
-function App() {
-  const [, setState] = useState({})
-  const getData = async() => {
-    const response = await axios.get('http://localhost:5000/async');
-    return response;
-  }
-  useEffect(() => {
-  getData()
-      .then(res => {
-        setState(res);
-      })
-  }, [])
+export const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <BrowserRouter>
+      <Routes/>
+    </BrowserRouter>
+  )
 }
-
-export default App;
