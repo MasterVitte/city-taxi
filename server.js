@@ -254,7 +254,7 @@ app.post("/order", (req, res) => {
 app.post("/cancelOrder", (req, res) => {
   const { id } = req.body
 
-  connection.query('UPDATE orders SET status = 5 WHERE id = ?', id, function (error, result) {
+  connection.query('UPDATE orders SET status = 6 WHERE id = ?', id, function (error, result) {
     if (error) throw error
 
     res.status(200).send()

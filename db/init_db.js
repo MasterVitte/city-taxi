@@ -3,12 +3,6 @@ const {connection, database_name} = require("./connect_db");
 const createDb = `CREATE DATABASE IF NOT EXISTS ${database_name}`
 const useDb = `USE ${database_name}`
 
-const createTenant = `CREATE TABLE IF NOT EXISTS tenant
-(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL
-)`
-
 
 const createOrderStatuses = `CREATE TABLE IF NOT EXISTS order_statuses
 (
@@ -32,6 +26,13 @@ const createUsers = `CREATE TABLE IF NOT EXISTS users
     foreign key(role) references roles (id)
 )`
 
+const createTenant = `CREATE TABLE IF NOT EXISTS tenant
+(
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    foreign key(user_id) references users (id)
+)`
+
 const createOrders = `CREATE TABLE IF NOT EXISTS orders
 (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -50,18 +51,10 @@ const createOrders = `CREATE TABLE IF NOT EXISTS orders
     foreign key(status) references order_statuses (id)
 )`
 
-const createCarClasses = `CREATE TABLE IF NOT EXISTS car_classes
-(
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name TEXT NOT NULL
-)`
-
 const createCars = `CREATE TABLE IF NOT EXISTS cars
 (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    model TEXT NOT NULL,
-    car_class INT NOT NULL,
-    foreign key(car_class) references car_classes (id)
+    model TEXT NOT NULL
 )`
 
 const createRatings = `CREATE TABLE IF NOT EXISTS ratings
@@ -76,9 +69,7 @@ const insertOrderStatuses = `INSERT INTO order_statuses(name) VALUES ('поис�
 
 const insertRoles = `INSERT INTO roles(name) VALUES ('клиент'), ('водитель')`
 
-const insertCarClasses = `INSERT INTO car_classes(name) VALUES ('эконом'), ('люкс'), ('бизнес')`
-
-const queries = [createTenant, createUsers, createOrders, createCars, createRatings]
+const queries = [createUsers, createTenant, createOrders, createCars, createRatings]
 
 connection.query(createDb, createErr => {
   if (createErr) throw createErr
@@ -99,14 +90,6 @@ connection.query(createDb, createErr => {
     if (createErr) throw createErr
 
     connection.query(insertRoles, insertErr => {
-      if (insertErr) throw insertErr
-    })
-  })
-
-  connection.query(createCarClasses, createErr => {
-    if (createErr) throw createErr
-
-    connection.query(insertCarClasses, insertErr => {
       if (insertErr) throw insertErr
     })
   })
